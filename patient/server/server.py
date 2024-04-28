@@ -16,14 +16,15 @@ def chat():
     input_text = data.get('input')
 
     try:
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a kind caregiver. Answer the following questions to the best of your ability..."},
-                {"role": "user", "content": input_text}
-            ]
-        )
-        response_message = completion.choices[0].message.content
+        # completion = client.chat.completions.create(
+        #     model="gpt-3.5-turbo",
+        #     messages=[
+        #         {"role": "system", "content": "You are a kind caregiver. Answer the following questions to the best of your ability..."},
+        #         {"role": "user", "content": input_text}
+        #     ]
+        # )
+        # response_message = completion.choices[0].message.content
+        response_message = "Hello, how can I help you today?"
         return jsonify({"response": response_message})
     except APIError as e:
         return jsonify({"error": "API error", "message": str(e)}), 500
