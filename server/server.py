@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 
 CREATE_TABLE = """CREATE TABLE IF NOT EXISTS form_data (id SERIAL PRIMARY KEY, firstName VARCHAR(255), lastName VARCHAR(255),gender VARCHAR(255), dob VARCHAR(255), phone VARCHAR(255), streetAddress VARCHAR(255), city VARCHAR(255), UsState VARCHAR(255), zipcode VARCHAR(255), guardianFirstName VARCHAR(255), guardianLastName VARCHAR(255), relationship VARCHAR(255), guardianPhone VARCHAR(255),  other VARCHAR(255), signaturePhoto bytea );"""
+GET_PATIENT_DATA = """SELECT * FROM form_data WHERE id = %s;"""  # SQL query to get patient data by ID
 
 INSERT_DATA = """INSERT INTO form_data (firstName, lastName, gender, dob, phone, streetAddress, city, UsState, zipcode, guardianFirstName, guardianLastName, relationship, guardianPhone, other,signaturePhoto) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s);"""
 
@@ -46,10 +47,24 @@ def submit_form():
         cursor.execute(INSERT_DATA, (data['firstName'], data['lastName'], data['dob'], data['phone'], data['address'], data['relativeNumber']))
         connection.commit()
     return jsonify({'status': 'success', 'data': data})
-
-
-
-
+@app.route('/getPatient/<int:patient_id>', methods=['GET'])
+def get_patient(patient_id):
+    with connection.cursor() as cursor:
+        cursor.execute(GET_PATIENT_DATA, (patient_id,))
+        patient = cursor.fetchone()
+        if patient:
+            # Assuming the cursor returns a tuple of data, you'll want to format this
+            # into a dictionary or similar structure to return as JSON
+            patient_data = {
+                "firstName": patient[1],
+                "lastName": patient[2],
+                "gender": patient[3],
+                "dob": patient[4],
+                # ...continue for the rest of the fields
+            }
+            return jsonify({'status': 'success', 'data': patient_data})
+        else:
+            return jsonify({'status': 'error', 'message': 'Patient not found'}), 404
 API_KEY = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=API_KEY)
 

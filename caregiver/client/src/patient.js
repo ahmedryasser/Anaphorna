@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
+import { Typography, Box, Card, CardContent, CardMedia, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import sueImage from './sue.webp';
 import hectorImage from './hector.webp';
 import hayatoImage from './hayato.webp';
@@ -44,6 +44,16 @@ const patientData = {
       },
 };
 
+const generateLogRows = (logEntry) => {
+    return logEntry.times.map((time, index) => (
+      <TableRow key={index}>
+        <TableCell component="th" scope="row">
+          {logEntry.repetition} {time}
+        </TableCell>
+        <TableCell align="right">{logEntry.response}</TableCell>
+      </TableRow>
+    ));
+  };
 
 const PatientDetail = () => {
     const { name } = useParams(); // Retrieves the name from the URL
@@ -53,6 +63,14 @@ const PatientDetail = () => {
     const patient = patientData[patientKey] || { name: "Not Found" };
     const image = patientImages[patientKey];
 
+    const logs = [
+        { 
+          repetition: "Sue asked 'Where's my family?'",
+          times: ["(3x) today (12/15/24) at (5:37pm)", "(12/15/24) at (5:38pm)", "(12/15/24) at (5:39pm)"],
+          response: "Sue, your family returns from work at 7pm"
+        },
+        // ... additional log entries
+      ];
   return (
         <Box className="patient-detail-container" sx={{ p: 2 }}>
           <Typography variant="h4" sx={{ mb: 2, textAlign: 'center' }}>Patient Details</Typography>
@@ -131,6 +149,19 @@ const PatientDetail = () => {
         </Grid>
 
       </Grid>
+      <TableContainer component={Paper} sx={{ marginTop: 4 }}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Repetition Detected</TableCell>
+              <TableCell align="right">Response</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {logs.map((logEntry, index) => generateLogRows(logEntry))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
