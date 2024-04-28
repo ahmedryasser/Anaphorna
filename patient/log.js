@@ -9,10 +9,10 @@ const logSchema = new mongoose.Schema({
         message: String,
         response: String
     },
-    patient_id: {
-        type: mongoose.Schema.Types.Number,
-        ref: 'Patient' // Reference to the Patient model
-    }
+    // patient_id: {
+    //     type: mongoose.Schema.Types.Number,
+    //     ref: 'Patient' // Reference to the Patient model
+    // }
 }, { collection: 'chats' }); // Specify the collection name
 
 const Chat = mongoose.model('Chat', logSchema);

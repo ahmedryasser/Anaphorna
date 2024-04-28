@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import sueImage from './sue.webp';
 import hectorImage from './hector.webp';
-// import susanIamge from './susan.webp';
 import hayatoImage from './hayato.webp';
 import nursePamImage from './nursepam.webp'; 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -11,7 +10,7 @@ import {Button, Typography} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import Basic from './Basic';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import PatientDetail from './patient';
 const Patient = ({ name, imageUrl }) => {
   return (
     <div className="patient">
@@ -68,11 +67,6 @@ const Home = () => {
   );
 };
 
-const PatientPage = ({ match }) => {
-  const { name } = match.params;
-  return <div>{`This is the page for ${name}.`}</div>;
-};
-
 function App() {
   return (
     <Router>
@@ -85,8 +79,8 @@ function App() {
         </header>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route exact path="/patient/:name" element={<PatientPage />} /> */}
           <Route path="/patient/new_patient" element={<Basic />} />
+          <Route path="/patient/:name" element={<PatientDetail />} />
         </Routes>
       </div>
     </Router>
