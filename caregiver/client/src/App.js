@@ -22,10 +22,14 @@ const Patient = ({ name, imageUrl }) => {
 };
 
 const Home = () => {
-  const [patients, setPatients] = useState([]);
-
+  const [patients, setPatients] = useState([
+    // Fallback patient data
+    { name: 'Sue', imageUrl: sueImage },
+    { name: 'Hector', imageUrl: hectorImage },
+    { name: 'Hayato', imageUrl: hayatoImage },
+  ]);
   useEffect(() => {
-    fetch('http://localhost:8080/api/patients')
+    fetch('http://localhost:8080/patients')
       .then(response => response.json())
       .then(data => {
         setPatients(data.map(patient => ({
