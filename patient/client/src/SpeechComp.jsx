@@ -3,15 +3,20 @@ import SpeechRecognition, {
     useSpeechRecognition,
 } from "react-speech-recognition";
 import {
+    Box,
+    Button,
     IconButton,Stack,
     Typography
 } from "@mui/material";
 import watchBackground from "./media/watchBackground.webp";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import axios from "axios";
 
-function Speech() {
+
+function SpeechComp() {
     const [recording, setRecording] = useState(false);
+    const [response, setResponse] = useState(''); 
     const silenceTimer = useRef(null);
     const silenceTimeoutMs = 2000; 
     const {
@@ -35,7 +40,8 @@ function Speech() {
         SpeechRecognition.stopListening();
         setRecording(false);
         clearSilenceTimer();
-        // handleMessageSend();
+        console.log("endSpeechRecognition: ", transcript);
+        handleMessageSend();
     };
 
     const resetSilenceTimer = () => {
@@ -62,12 +68,37 @@ function Speech() {
     useEffect(() => {
         return () => clearSilenceTimer();
     }, []);
+    const speak = (response) => {
+        if (!speechSynthesis) {
+            console.error('Speech synthesis not supported');
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(response);
+        speechSynthesis.speak(utterance);
+    }
     const handleMessageSend = () => {
-        // LLM calling the function to send the transcript
+            const payload = {
+            input: transcript,
+        };
+        const url = `http://localhost:5000/chat`;
+
+        axios
+            .post(url, payload)
+            .then((response) => {
+                setResponse(response.data.response);
+                speak(response.data.response);
+            })
+            .catch((error) => {
+                //addMessage("message", true, "Sorry, there was a problem processing your request. Please try again.", new Date());
+                setResponse( "Error: " + error);
+                
+                console.error("There was an error!", error.response);
+            });
     };
     return (
         <>
-      <Stack justifyContent={"center"} alignItems={"center"} height={"100vh"} className="speech" sx={{backgroundImage: `url(${watchBackground})`, backgroundSize: "cover", height: "100%", width: "100%",backgroundPosition:"center"}} >
+        <Stack justifyContent={"center"} alignItems={"center"} height={"100vh"} className="speech" sx={{backgroundImage: `url(${watchBackground})`, backgroundSize: "cover", height: "100%", width: "100%",backgroundPosition:"center"}} >
             <br/>
             {!recording && (
                 <IconButton onClick={startSpeechRecognition}>
@@ -80,13 +111,15 @@ function Speech() {
                 </IconButton>
             )}
             <br />
-            <Typography variant='h4' bottom={"0"} position={"absolute"} marginBottom={"30px"} color={"#216454"}> {transcript}</Typography>
-            
-      </Stack>
+
+            <Box bottom={"0"} justifyContent={"center"} width={"70%"} height={"45px"} overflow={"hidden"} borderRadius={"10px"} position={"absolute"} marginBottom={"30px"} sx={{backgroundColor:"white"}}>
+                {recording && (<Typography variant='h5'> {transcript}</Typography>)} {!recording && (<Typography variant='h4'> {response}</Typography>)}
+            </Box>
+        </Stack>
         </>
       
     );
   }
   
-  export default Speech;
+  export default SpeechComp;
   
