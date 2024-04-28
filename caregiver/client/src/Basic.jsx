@@ -22,20 +22,38 @@ function Basic() {
     const [relativePhone, setRelativePhone] = useState('');
     const navigate = useNavigate();
     const outlet = useOutlet(); 
-
-    if (outlet) return outlet;
+    const [formState, setFormState] = useState({
+        firstName: '',
+        lastName: '',
+        dob: null,
+        phone: '',
+        address: '',
+        relativePhone: ''
+      });
     
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // send to db
-        navigate("/");
-      };
-    
+    const handleSubmit = async (event) => {
+        event.preventDefault();   
+        setFormState({
+            firstName: firstName,
+            lastName: lastName,
+            dob: dob,
+            phone: phone,
+            address: address,
+            relativePhone: relativePhone
+        });
+            
+        await fetch('http://localhost:5000/addPatient', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formState),
+        });  
+          navigate("/");
+        }
+        
       return (
             <div className={"basic"}>
-                {/* <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                    
-                </form> */}
                 
                 <Form onSubmit={handleSubmit}>
                 <h1 className='title'>Enter Patient Information</h1>
@@ -68,12 +86,8 @@ function Basic() {
                         <Form.Label>Closest Relative Phone</Form.Label>
                         <PhoneInput value={relativePhone} onChange={setRelativePhone}></PhoneInput>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicAddress">
-                        <Form.Label>Closest Relative Street Address</Form.Label>
-                        <Form.Control type="text" placeholder="Street Adress" value={address} onChange={(e) => setAddress(e.target.value)}/>
-                    </Form.Group>
                     <Button variant="primary" type="submit">
-                        Next: Guardian Information
+                        Add Patient
                     </Button>
                 </Stack>
                 </Form>
