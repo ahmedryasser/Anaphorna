@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import sueImage from './sue.webp';
@@ -22,14 +22,19 @@ const Patient = ({ name, imageUrl }) => {
 };
 
 const Home = () => {
-  // Add your patient data here
-  const patients = [
-    { name: 'Sue', imageUrl: sueImage },
-    { name: 'Hector', imageUrl: hectorImage },
-    { name: 'Hayato', imageUrl: hayatoImage },
-    // { name: 'Susan', imageUrl: susanImage },
-    // ...other patients
-  ];
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/patients')
+      .then(response => response.json())
+      .then(data => {
+        setPatients(data.map(patient => ({
+          name: patient._id.toString(),  // Assuming patient's name is stored under _id
+          imageUrl: patient.image_id // Map correct field for the image URL
+        })));
+      })
+      .catch(error => console.error('Error fetching data: ', error));
+  }, []);
 
   return (
     <div className="home">
