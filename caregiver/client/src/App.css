@@ -14,19 +14,64 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: rgb(97, 189, 97);
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  justify-content: flex-end;
 }
 
 .App-link {
   color: #61dafb;
 }
+.Login-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.Profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.patient {
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.patient-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid red; /* Color as per your design */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.patient-image {
+  width: 100%;
+  height: auto;
+}
+
+.patient-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 
 @keyframes App-logo-spin {
   from {
