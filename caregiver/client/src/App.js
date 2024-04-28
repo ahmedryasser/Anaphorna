@@ -7,6 +7,10 @@ import hectorImage from './hector.webp';
 import hayatoImage from './hayato.webp';
 import nursePamImage from './nursepam.webp'; 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {Button, Typography} from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import Basic from './Basic';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Patient = ({ name, imageUrl }) => {
   return (
@@ -40,15 +44,25 @@ const Home = () => {
       .catch(error => console.error('Error fetching data: ', error));
   }, []);
 
+    // { name: 'Susan', imageUrl: susanImage },
+    // ...other patients
+  
+  const Navigate = useNavigate();
+  const addNewPatient = () => {
+    // Add a new patient to the list
+    Navigate("../patient/new_patient")
+  };
   return (
     <div className="home">
-      <h1>Welcome Caregiver</h1>
-      <h2>Select a patient: </h2>
+      <Typography variant='h4' >Welcome Caregiver</Typography>
+      <br/>
+      <Typography variant='h6'>Select a patient: </Typography>
       <div className="patient-list">
         {patients.map(patient => (
           <Patient key={patient.name} name={patient.name} imageUrl={patient.imageUrl} />
         ))}
         {/* Render your plus button here for adding new patients */}
+        <Button onClick={addNewPatient} sx={{height: "80px", width: "80px", borderRadius:"50%"}} variant="contained" color="primary">+</Button>
       </div>
     </div>
   );
@@ -63,15 +77,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
+        <header style={{borderBottomRightRadius:"10px", borderBottomLeftRadius:"10px"}}  className="App-header">
           <div className="Login-info">
-            <span>Logged in as: Nurse Pam</span>
-            <img src={nursePamImage} alt="Nurse Pam" className="Profile-image" />
+            <span style={{marginRight:"5px"}}>Welcome back Nurse Pam! </span>
+            <img src={nursePamImage} alt="Nurse Pam"  className="Profile-image" />
           </div>
         </header>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/patient/:name" element={<PatientPage />} />
+          {/* <Route exact path="/patient/:name" element={<PatientPage />} /> */}
+          <Route path="/patient/new_patient" element={<Basic />} />
         </Routes>
       </div>
     </Router>
