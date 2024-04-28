@@ -29,6 +29,7 @@ schema = {
 load_dotenv()
 app = Flask(__name__)
 url = os.getenv('DATABASE_URL')
+API_KEY = os.getenv('OPENAI_API_KEY')
 connection = psycopg2.connect(url)
 CORS(app)  
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -64,9 +65,7 @@ def get_patient(patient_id):
             }
             return jsonify({'status': 'success', 'data': patient_data})
         else:
-            return jsonify({'status': 'error', 'message': 'Patient not found'}), 404
-API_KEY = os.getenv('OPENAI_API_KEY')
-client = OpenAI(api_key=API_KEY)
+            return jsonify({'status': 'error', 'message': 'Patient not found'}), 404client = OpenAI(api_key="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")
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -74,15 +73,15 @@ def chat():
     input_text = data.get('input')
 
     try:
-        # completion = client.chat.completions.create(
-        #     model="gpt-3.5-turbo",
-        #     messages=[
-        #         {"role": "system", "content": "You are a kind caregiver. Answer the following questions to the best of your ability..."},
-        #         {"role": "user", "content": input_text}
-        #     ]
-        # )
-        # response_message = completion.choices[0].message.content
-        response_message = "Hello, how can I help you today?"
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a kind caregiver for a dementia patient. Answer the following questions to the best of your ability..."},
+                {"role": "user", "content": input_text}
+            ]
+        )
+        response_message = completion.choices[0].message.content
+        
         return jsonify({"response": response_message})
     except APIError as e:
         return jsonify({"error": "API error", "message": str(e)}), 500
