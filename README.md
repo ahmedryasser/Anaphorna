@@ -1,7 +1,7 @@
-# Anaphoria - Dementia Patient Support System
+# Anaphora - Dementia Patient Support System
 
 ## Description:
-Anaphoria is a web-based simulation of a wearable watch designed to help dementia patients by answering their questions and detecting repetitive behavior. The system provides caregivers with a comprehensive CRUD interface to manage patient information and monitor patient repetitions and vitals. This project was took 24 hours to build.
+Anaphora is a web-based simulation of a wearable watch designed to help dementia patients by answering their questions and detecting repetitive behavior. The system provides caregivers with a comprehensive CRUD interface to manage patient information and monitor patient repetitions and vitals. This project was took 24 hours to build.
 
 
 ## Features
