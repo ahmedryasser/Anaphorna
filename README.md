@@ -1,7 +1,7 @@
 # Anaphoria - Dementia Patient Support System
 
 ## Description:
-Anaphoria is a web-based simulation of a wearable watch designed to help dementia patients by answering their questions and detecting repetitive behavior. The system provides caregivers with a comprehensive CRUD interface to manage patient information and monitor patient repetitions and vitals.
+Anaphoria is a web-based simulation of a wearable watch designed to help dementia patients by answering their questions and detecting repetitive behavior. The system provides caregivers with a comprehensive CRUD interface to manage patient information and monitor patient repetitions and vitals. This project was took 24 hours to build.
 
 
 ## Features
@@ -35,3 +35,18 @@ Prerequisites
 - Python 3.8+
 - Node.js 14+
 - PostgreSQL
+
+### Running patient client
+- npm i
+- navigate to patient/client
+- npm start
+
+### Running caregiver client
+- npm i
+- navigate to caregiver/client
+- npm start
+
+### Running server
+- navigate to server
+- pip install -r requirements.txt
+- python server.py
