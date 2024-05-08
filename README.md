@@ -17,8 +17,7 @@ Anaphoria is a web-based simulation of a wearable watch designed to help dementi
 - Allows caregivers to manage patient data.
 - Tracks repetitions, vitals, and other behavioral patterns.
 - Generates comprehensive reports for effective patient care.
-  
-![Screenshot 2024-05-08 162054](https://github.com/ahmedryasser/Anaphora/assets/56661044/e5a4bba1-d811-43a8-b893-d448e121e3d8)
+<img width="959" alt="Caregiver" src="https://github.com/ahmedryasser/Anaphora/assets/56661044/59a5c0cf-4473-4372-a506-a9415e96f5d4">
 ![Screenshot 2024-05-08 162136](https://github.com/ahmedryasser/Anaphora/assets/56661044/dde9052a-3a5c-4f8b-b254-04614b3b5c0a)
 ## Tech Stack
 ### Frontend
