@@ -47,6 +47,10 @@ Prerequisites
 - npm start
 
 ### Running server
+(optional)
+- python3 -m venv venv 
+- source venv/bin/activate
+Required
 - navigate to server
 - pip install -r requirements.txt
 - python server.py
