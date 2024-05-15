@@ -1,4 +1,5 @@
 # Anaphora - Dementia Patient Support System
+![image](https://github.com/ahmedryasser/Anaphorna/assets/56661044/65e7e5a0-9ad1-46e4-beb7-e913d39e82f6)
 
 ## Description:
 Anaphora is a web-based simulation of a wearable watch designed to help dementia patients by answering their questions and detecting repetitive behavior. The system provides caregivers with a comprehensive CRUD interface to manage patient information and monitor patient repetitions and vitals. This project was took 24 hours to build.
@@ -18,7 +19,7 @@ Anaphora is a web-based simulation of a wearable watch designed to help dementia
 - Tracks repetitions, vitals, and other behavioral patterns.
 - Generates comprehensive reports for effective patient care.
 <img width="959" alt="Caregiver" src="https://github.com/ahmedryasser/Anaphora/assets/56661044/59a5c0cf-4473-4372-a506-a9415e96f5d4">
-![Screenshot 2024-05-08 162136](https://github.com/ahmedryasser/Anaphora/assets/56661044/dde9052a-3a5c-4f8b-b254-04614b3b5c0a)
+
 ## Tech Stack
 ### Frontend
 - React.js: Web user interface framework
